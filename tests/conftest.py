@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from tests.locators import StartPageLocators, LoginPageLocators, RegistrationPageLocators
+from locators import StartPageLocators, LoginPageLocators, RegistrationPageLocators
 import random
 from random import choice
 from string import ascii_letters
@@ -25,7 +25,6 @@ def registration(random_email, random_password):
     driver.find_element(By.XPATH, RegistrationPageLocators.EMAIL_INPUT_FIELD).send_keys(email)
     driver.find_element(By.XPATH, RegistrationPageLocators.PASSWORD_INPUT_FIELD).send_keys(password)
     driver.find_element(By.XPATH, RegistrationPageLocators.REGISTRATION_BUTTON).click()
-    yield driver
     driver.quit()
 
 

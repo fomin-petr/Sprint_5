@@ -2,13 +2,29 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from locators import StartPageLocators, LoginPageLocators, RegistrationPageLocators, PrivatePageLocators
+import random
+from random import choice
+from string import ascii_letters
 
 
 class TestRegistration:
-    def test_successful_registration(self, registration, random_email, random_password):
-        driver = registration
-        email = random_email
-        password = random_password
+    def test_successful_registration(self, start_page):
+        driver = start_page
+        email = ''
+        for i in range(8):
+            email += choice(ascii_letters)
+        email += '__' + str(random.randint(0, 99999999)) + '@yaya.ru'
+        password = random.randint(100000, 999999)
+        driver.find_element(By.XPATH, StartPageLocators.LOGIN_BUTTON).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, LoginPageLocators.REGISTRATION_BUTTON)))
+        driver.find_element(By.XPATH, LoginPageLocators.REGISTRATION_BUTTON).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, RegistrationPageLocators.NAME_INPUT_FIELD)))
+        driver.find_element(By.XPATH, RegistrationPageLocators.NAME_INPUT_FIELD).send_keys('Test')
+        driver.find_element(By.XPATH, RegistrationPageLocators.EMAIL_INPUT_FIELD).send_keys(email)
+        driver.find_element(By.XPATH, RegistrationPageLocators.PASSWORD_INPUT_FIELD).send_keys(password)
+        driver.find_element(By.XPATH, RegistrationPageLocators.REGISTRATION_BUTTON).click()
         WebDriverWait(driver, 3).until(
             expected_conditions.visibility_of_element_located((By.XPATH, LoginPageLocators.LOGIN_BUTTON)))
         driver.find_element(By.XPATH, LoginPageLocators.EMAIL_INPUT_FIELD).send_keys(email)
