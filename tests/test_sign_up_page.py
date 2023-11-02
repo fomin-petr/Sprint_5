@@ -3,9 +3,6 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from locators import StartPageLocators, LoginPageLocators, RegistrationPageLocators, PrivatePageLocators
 from CommonFunctions import Helper
-import random
-from random import choice
-from string import ascii_letters
 
 
 class TestRegistration:
