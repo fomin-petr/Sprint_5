@@ -5,14 +5,8 @@ from locators import StartPageLocators, LoginPageLocators, PrivatePageLocators
 
 
 class TestLogout:
-    def test_logout(self, registration, start_page, random_email, random_password):
-        driver = start_page
-        driver.find_element(By.XPATH, StartPageLocators.PRIVATE_PAGE_BUTTON).click()
-        WebDriverWait(driver, 3).until(
-            expected_conditions.visibility_of_element_located((By.XPATH, LoginPageLocators.LOGIN_BUTTON)))
-        driver.find_element(By.XPATH, LoginPageLocators.EMAIL_INPUT_FIELD).send_keys(random_email)
-        driver.find_element(By.XPATH, LoginPageLocators.PASSWORD_INPUT_FIELD).send_keys(random_password)
-        driver.find_element(By.XPATH, LoginPageLocators.LOGIN_BUTTON).click()
+    def test_logout(self, registration, login, random_email, random_password):
+        driver = login
         WebDriverWait(driver, 3).until(
             expected_conditions.visibility_of_element_located((By.XPATH, StartPageLocators.CREATE_ORDER_BUTTON)))
         driver.find_element(By.XPATH, StartPageLocators.PRIVATE_PAGE_BUTTON).click()

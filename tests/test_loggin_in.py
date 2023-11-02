@@ -7,7 +7,7 @@ from locators import StartPageLocators, LoginPageLocators, RegistrationPageLocat
 class TestLogin:
     def test_login_in_main_page(self, registration, start_page, random_email, random_password):
         driver = start_page
-        driver.find_element(By.XPATH, StartPageLocators.LOGIN_BUTTON).click()
+        driver.find_element(By.XPATH, StartPageLocators.PRIVATE_PAGE_BUTTON).click()
         WebDriverWait(driver, 3).until(
             expected_conditions.visibility_of_element_located((By.XPATH, LoginPageLocators.LOGIN_BUTTON)))
         driver.find_element(By.XPATH, LoginPageLocators.EMAIL_INPUT_FIELD).send_keys(random_email)

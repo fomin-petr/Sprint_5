@@ -23,6 +23,7 @@ class RegistrationPageLocators:
     PASSWORD_INPUT_FIELD = '//label[ text()="Пароль" ]/parent::div/input' # Поле ввода Пароля
     REGISTRATION_BUTTON = '//button[ text()="Зарегистрироваться" ]' # кнопка регистриации
     LOGIN_BUTTON = '//a[ contains(@href, "/login") ]' # кнопка Войти
+    ERROR_MESSAGE = '//p[ contains(@class, "input__error")]'
 
 
 class PrivatePageLocators:
