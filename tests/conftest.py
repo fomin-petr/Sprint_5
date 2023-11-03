@@ -9,12 +9,11 @@ from random import choice
 from string import ascii_letters
 
 
-@pytest.fixture(scope='session')
-def registration(random_email, random_password):
+@pytest.fixture()
+def registration(start_page, random_email, random_password):
     email = random_email
     password = random_password
-    driver = webdriver.Chrome()
-    driver.get('https://stellarburgers.nomoreparties.site/')
+    driver = start_page
     driver.find_element(By.XPATH, StartPageLocators.LOGIN_BUTTON).click()
     WebDriverWait(driver, 3).until(
         expected_conditions.visibility_of_element_located((By.XPATH, LoginPageLocators.REGISTRATION_BUTTON)))
@@ -25,7 +24,8 @@ def registration(random_email, random_password):
     driver.find_element(By.XPATH, RegistrationPageLocators.EMAIL_INPUT_FIELD).send_keys(email)
     driver.find_element(By.XPATH, RegistrationPageLocators.PASSWORD_INPUT_FIELD).send_keys(password)
     driver.find_element(By.XPATH, RegistrationPageLocators.REGISTRATION_BUTTON).click()
-    driver.quit()
+    driver.find_element(By.XPATH, StartPageLocators.LOGO_BUTTON).click()
+    yield driver
 
 
 @pytest.fixture()
@@ -49,7 +49,7 @@ def start_page():
     driver.quit()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture()
 def random_email():
     random_email = ''
     for i in range(8):
@@ -58,7 +58,7 @@ def random_email():
     return random_email
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture()
 def random_password():
     random_password = random.randint(100000, 999999)
     return random_password
